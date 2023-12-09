@@ -1,0 +1,24 @@
+# Criar um sistema bancario com as operações: sacar, depositar e visualizar extrato.
+
+-> deve ser possivel depositar valores positivos para minha conta bancária. a v1 do projeto
+trabalha apenas com 1 usuario, dessa forma não precisamos nos preocupar em identificar qual
+é o numero da agência e conta bancária. Todos os depósitos devem ser armazenados  em uma 
+variavel e exibidos na operação de extrato;
+
+-> o sistema deve permitir apenas 3 saques diarios com limite maximo de R$500,00 por saque
+(R$1500,00 por dia); ☑️
+
+-> caso o usuario não possua saldo em conta, o sistema deve exibir uma mensagem informando 
+que não será possivel sacar o dinheiro;
+
+-> todos os saque devem ser armazenados em uma variavel e exibidos na operação de extrato;
+
+-> operação de extrato (ideia: usar array): Essa operação deve listar todos os depositos e 
+saques realizados na conta. no fim da listagem deve ser exibido o saldo atual da conta.
+
+-> Forma de valor: R$xxx.xx;
+
+
+
+
+ 
