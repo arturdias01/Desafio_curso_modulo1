@@ -4,13 +4,16 @@ def limpar():
     os.system('pause')
     os.system('cls')
 
+
 def saque(saldo_atual, quantia_saque):
     saldo_atual -= quantia_saque
     return saldo_atual
 
+
 def deposito(saldo_atual, quantia_deposito):
     saldo_atual += quantia_deposito
     return saldo_atual
+
 
 def mostrar_extrato(seu_extrato, saldo_atual):
     print('-----Seu Extrato-----\n')
@@ -23,10 +26,25 @@ def mostrar_extrato(seu_extrato, saldo_atual):
     print(f'\nSaldo: R${saldo_atual:.2f}\n')
     print('---------------------')
     limpar()
+
+
+def verificar_cpf_existente(lista, teste_cpf):
+    for usuario in lista:
+        if usuario.get('cpf') == teste_cpf:
+            return True
+    return False
+
+def cadastrar_usuario(lista, nome, cpf):
+    novo_dicionario = {"nome": nome, "cpf": cpf}
+    lista.append(novo_dicionario)
+
+def listar_usuarios(lista):
+    for i in lista:
+        print(i)
+    
 # ----------------------------------------------------
 
-conta_corrente = {}
-usuarios = {}
+usuarios = []
 saldo = float(600)
 limite = 500.00
 extrato = []
@@ -55,8 +73,10 @@ menu = f"""
 [1]-Sacar
 [2]-Depositar
 [3]-Visualizar extrato
-[4]- ...
-[5]- ...
+----------------------
+[4]-Cadastrar usuario
+[5]-Listar usuarios
+----------------------
 [0]-Sair
 
 """
@@ -118,7 +138,33 @@ while True:
 
         os.system('cls')
         mostrar_extrato(seu_extrato=extrato, saldo_atual=saldo)
+
+
+    elif opcao == "4":
+
+        os.system('cls')
+        nome = str(input('Digito o nome: '))
+        cpf = str(input('Digite o CPF: '))
+
+        teste = verificar_cpf_existente(usuarios, cpf)
+
+        if teste == False:
+            cadastrar_usuario(usuarios, nome, cpf)
+            print('Usuario cadastrado com sucesso.')
+        else:
+            print('Usuario ja existe.')
+        limpar()
+
+
+    elif opcao == "5":
+
+        if usuarios == []:
+            print('Não há nenhum usuario cadastrado.')
+        else:
+            listar_usuarios(usuarios)
+        limpar()
         
     else:
         print('Operação indisponível...')
         limpar()
+
