@@ -4,8 +4,29 @@ def limpar():
     os.system('pause')
     os.system('cls')
 
+def saque(saldo_atual, quantia_saque):
+    saldo_atual -= quantia_saque
+    return saldo_atual
+
+def deposito(saldo_atual, quantia_deposito):
+    saldo_atual += quantia_deposito
+    return saldo_atual
+
+def mostrar_extrato(seu_extrato, saldo_atual):
+    print('-----Seu Extrato-----\n')
+
+    if len(seu_extrato) == 0:
+        print('Não há operações no momento...')
+    else:
+        for i in seu_extrato:
+            print(i)
+    print(f'\nSaldo: R${saldo_atual:.2f}\n')
+    print('---------------------')
+    limpar()
 # ----------------------------------------------------
 
+conta_corrente = {}
+usuarios = {}
 saldo = float(600)
 limite = 500.00
 extrato = []
@@ -23,7 +44,7 @@ contato com o nosso suporte.
 """
 
 saldo_indisponivel = """
-Saldo indisponivel...
+Saldo indisponivel.
 
 Prezado(a) cliente, lamentamos informar que, no momento, seu saldo está indisponível.
 Por favor, entre em contato com o nosso suporte para mais informações. 
@@ -33,24 +54,22 @@ Agradecemos sua compreensão.
 menu = f"""
 [1]-Sacar
 [2]-Depositar
-[3]-Visualizar extrato 
+[3]-Visualizar extrato
+[4]- ...
+[5]- ...
 [0]-Sair
+
 """
 
 # ----------------------------------------------------
 
-teste = True
-
-while teste == True:
+while True:
     print(f'Saldo: R${saldo:.2f}')
-    print(menu)
-
-    opcao = input('Oque deseja fazer? ')
+    opcao = input(menu)
 
     if opcao == "0":
-        print('Saindo...')
-        os.system('Pause')
-        teste = False
+        os.system('cls')
+        break
 
     elif opcao == "1":
         os.system('cls')
@@ -61,7 +80,7 @@ while teste == True:
             limpar()
 
         elif quantia <= saldo and quantia != 0:
-            saldo -= quantia
+            saldo = saque(saldo_atual= saldo, quantia_saque= quantia)
             numero_saques += 1
             str_extrato = f"Saída: R${quantia:.2f}"
             extrato.append(str_extrato)
@@ -70,7 +89,6 @@ while teste == True:
             quantia = 0
             str_extrato = None
             
-
         elif quantia == 0:
             print('Não é possível realizar a operação')
             limpar()
@@ -84,7 +102,7 @@ while teste == True:
         quantia = float(input('Informe a quantia que deseja depositar: '))
 
         if quantia > 0:
-            saldo += quantia
+            saldo = deposito(saldo, quantia)
             str_extrato = f'Entrada: R${quantia:.2f}'
             extrato.append(str_extrato)
             print('Depósito realizado com sucesso!\n')
@@ -96,21 +114,11 @@ while teste == True:
             print('Não foi possível realizar a operação.\n')
             limpar()
 
-
     elif opcao == "3":
-        
+
         os.system('cls')
-        print('-----Seu Extrato-----\n')
-
-        if len(extrato) == 0:
-            print('Não há operações no momento...')
-        else:
-            for i in extrato:
-                print(i)
-        print(f'\nSaldo: R${saldo:.2f}\n')
-        print('---------------------')
-        limpar()
-
+        mostrar_extrato(seu_extrato=extrato, saldo_atual=saldo)
+        
     else:
         print('Operação indisponível...')
         limpar()
